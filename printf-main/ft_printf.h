@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/05 15:56:54 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/10 17:00:12 by lduchemi         ###   ########.fr       */
+/*   Created: 2023/10/26 13:55:18 by lduchemi          #+#    #+#             */
+/*   Updated: 2023/10/27 14:45:45 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include <signal.h>
+# include <fcntl.h>
+# include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <sys/types.h>
 # include <unistd.h>
 
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_put_di(int number, int *length);
+void	ft_put_hex(unsigned int number, unsigned int base, int *length, char x);
+int		ft_putstr(char *str);
+int		ft_format(va_list args, const char format);
+int		ft_printf(const char *format, ...);
+void	ft_put_u(unsigned int number, int *length);
+void	ft_put_p(unsigned long number, int *length);
+void	ft_ptr(unsigned long number, unsigned long base, int *length, char x);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:24:10 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/05 17:26:13 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:54:38 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,25 @@ void	send_signal(int pid, unsigned char character)
 
 int	main(int argc, char *argv[])
 {
-	int			pid;
-	const char	*string_to_send;
+	int				pid;
+	int				i;
 
+	i = 0;
 	if (argc != 3)
 	{
-		fprintf(stderr, "Usage: %s <server_pid> <string>\n", argv[0]);
+		printf("Usage: ./client <server_pid> <string>\n");
 		exit(EXIT_FAILURE);
 	}
-	pid = atoi(argv[1]);
-	string_to_send = argv[2];
-	// Send string to server
-	send_string(pid, string_to_send);
+	else
+	{
+		pid = atoi(argv[1]);
+		while (argv[2][i] != '\0')
+		{
+			// Send string to server
+			send_signal(pid, argv[2][i]);
+			i++;
+		}
+	}
+
 	return (0);
 }
