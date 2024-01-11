@@ -6,7 +6,7 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:24:10 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/11 16:22:47 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:58:38 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[])
 	i = 0;
 	if (argc != 3)
 	{
-		printf("Usage: ./client <server_pid> <string>\n");
+		ft_printf("Usage: ./client <server_pid> <string>\n");
 		exit(EXIT_FAILURE);
 	}
 	else

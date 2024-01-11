@@ -6,7 +6,7 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:56:46 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/11 15:58:30 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:03:44 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	handle_signal(int signal)
 		output = ft_strjoin(output, current_char);
 		if (current_char == 0)
 		{
-			printf("%s\n", output);
+			ft_printf("%s\n", output);
 			free(output);
 			output = NULL;
 		}
@@ -41,8 +41,8 @@ int	main(int argc, char **argv)
 
 	(void)argv;
 	server_pid = getpid();
-	printf("\033[94mPID\033[0m \033[96m->\033[0m %d\n", server_pid);
-	printf("\033[90mWaiting for a message...\033[0m\n");
+	ft_printf("\033[94mPID\033[0m \033[96m->\033[0m %d\n", server_pid);
+	ft_printf("\033[90mWaiting for a message...\033[0m\n");
 	while (argc == 1)
 	{
 		signal(SIGUSR1, handle_signal);
