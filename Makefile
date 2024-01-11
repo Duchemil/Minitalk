@@ -1,11 +1,11 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 SRCDIR = ./printf-main
 SRCFILES = ft_nbr.c ft_printf.c ft_word.c
 SRCS = $(addprefix $(SRCDIR)/, $(SRCFILES))
 
-SERVER_SRCS = server.c
-CLIENT_SRCS = client.c
+SERVER_SRCS = server.c utils.c
+CLIENT_SRCS = client.c utils.c
 HEADERS = minitalk.h
 SERVER = server
 CLIENT = client

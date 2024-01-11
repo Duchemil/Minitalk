@@ -6,11 +6,21 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:14:29 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/10 16:59:02 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:53:36 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -35,28 +45,31 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (p);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char s2)
 {
-	char	*join;
+	int		s1_len;
 	int		i;
-	int		j;
+	char	*str;
 
-	i = 0;
-	j = 0;
-	join = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
-	if (!join)
+	s1_len = 0;
+	if (!s1)
+	{
+		s1 = malloc(sizeof(*s1) * 1);
+		if (!s1)
+			return (NULL);
+		else
+			s1[0] = '\0';
+	}
+	else
+		s1_len = ft_strlen(s1);
+	str = malloc((s1_len + 2) * sizeof(*str));
+	if (!str)
 		return (NULL);
-	while (s1[i])
-	{
-		join[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		join[i] = s2[j];
-		i++;
-		j++;
-	}
-	join[i] = '\0';
-	return (join);
+	i = -1;
+	while (i++ < s1_len - 1)
+		str[i] = s1[i];
+	str[i] = s2;
+	str[i + 1] = '\0';
+	free(s1);
+	return (str);
 }
