@@ -6,7 +6,7 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:14:29 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/11 16:58:35 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:06:44 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*p;
-
-	p = s;
-	while (n > 0)
-	{
-		*p++ = '\0';
-		n--;
-	}
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*p;
-
-	p = (void *)malloc(nmemb * size);
-	if (!p)
-		return (NULL);
-	ft_bzero(p, size * nmemb);
-	return (p);
 }
 
 char	*ft_strjoin(char *s1, char s2)

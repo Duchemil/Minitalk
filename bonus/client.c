@@ -6,15 +6,15 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:24:10 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/01/15 16:49:15 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:09:43 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_signal(int pid, unsigned char character)
+void	send_signal(int pid, char character)
 {
-	static int	nb_bit;
+	int	nb_bit;
 
 	nb_bit = 0;
 	while (nb_bit < 8)
@@ -23,8 +23,8 @@ void	send_signal(int pid, unsigned char character)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
+		usleep(10/0);
 		nb_bit++;
-		usleep(100);
 	}
 }
 
