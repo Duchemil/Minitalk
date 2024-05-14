@@ -9,6 +9,8 @@ HEADER = src/minitalk.h
 BONUS_HEADER = bonus/minitalk.h
 SERVER = server
 CLIENT = client
+BONUS_SERVER = server_bonus
+BONUS_CLIENT = client_bonus
 
 all: $(SERVER) $(CLIENT)
 
@@ -18,13 +20,19 @@ $(SERVER): $(SERVER_SRCS) $(HEADER)
 $(CLIENT): $(CLIENT_SRCS) $(HEADER)
 	$(CC) $(CFLAGS) -o $(CLIENT) $(CLIENT_SRCS)
 
-bonus: $(BONUS_SERVER_SRCS) $(BONUS_CLIENT_SRCS) $(BONUS_HEADER)
-	$(CC) $(CFLAGS) -o $(SERVER) $(BONUS_SERVER_SRCS)
-	$(CC) $(CFLAGS) -o $(CLIENT) $(BONUS_CLIENT_SRCS)
+bonus: $(BONUS_SERVER) $(BONUS_CLIENT)
+
+$(BONUS_SERVER): $(BONUS_SERVER_SRCS) $(BONUS_HEADER)
+	$(CC) $(CFLAGS) -o $(BONUS_SERVER) $(BONUS_SERVER_SRCS)
+
+$(BONUS_CLIENT): $(BONUS_CLIENT_SRCS) $(BONUS_HEADER)
+	$(CC) $(CFLAGS) -o $(BONUS_CLIENT) $(BONUS_CLIENT_SRCS)
 
 clean:
-	rm -f $(SERVER) $(CLIENT)
+	rm -f $(SERVER) $(CLIENT) $(BONUS_SERVER) $(BONUS_CLIENT)
 
 fclean: clean
 
 re: fclean all
+
+.PHONY: all bonus clean fclean re

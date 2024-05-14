@@ -6,7 +6,7 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:24:10 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/04/30 15:32:08 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:40:18 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	verif_signal(int sig, siginfo_t *info, void *context)
 	static int	nbchar = 0;
 
 	if (sig == SIGUSR1)
-	{
 		nbchar++;
-	}
 	else
 	{
 		if (nbchar != ft_strlen(g_string))
@@ -82,6 +80,7 @@ int	main(int argc, char *argv[])
 	g_string = argv[2];
 	signal.sa_sigaction = verif_signal;
 	signal.sa_flags = SA_SIGINFO;
+	sigemptyset(&signal.sa_mask);
 	sigaction(SIGUSR1, &signal, 0);
 	sigaction(SIGUSR2, &signal, 0);
 	send_signal(pid, argv[2]);

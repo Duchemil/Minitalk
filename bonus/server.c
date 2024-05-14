@@ -6,48 +6,51 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:56:46 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/04/11 14:55:20 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:40:15 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	handle_signal(int signal)
+void	handle_signal(int sig, siginfo_t *info, void *context)
 {
-	static char			*output = NULL;
-	static int			current_char = 0;
-	static int			bit_index = 0;
+	static char				*output = NULL;
+	static unsigned char	c = 0;
+	static int				i = 0;
 
-	if (signal == SIGUSR1)
-		current_char |= (0x01 << bit_index);
-	bit_index++;
-	if (bit_index == 8)
+	(void)context;
+	c |= (sig == SIGUSR1);
+	if (++i == 8)
 	{
-		output = ft_strjoin(output, current_char);
-		if (current_char == 0)
+		i = 0;
+		if (!c)
 		{
 			ft_printf("%s\n", output);
 			free(output);
 			output = NULL;
+			kill(info->si_pid, SIGUSR2);
+			return ;
 		}
-		bit_index = 0;
-		current_char = 0;
+		output = ft_strjoin(output, c);
+		kill(info->si_pid, SIGUSR1);
+		c = 0;
 	}
+	else
+		c = c << 1;
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	pid_t	server_pid;
+	struct sigaction	signal;
 
-	(void)argv;
-	server_pid = getpid();
-	ft_printf("\033[94mPID\033[0m \033[96m->\033[0m %d\n", server_pid);
+	ft_printf("\033[94mPID\033[0m \033[96m->\033[0m %d\n", getpid());
 	ft_printf("\033[90mWaiting for a message...\033[0m\n");
-	while (argc == 1)
-	{
-		signal(SIGUSR1, handle_signal);
-		signal(SIGUSR2, handle_signal);
+	signal.sa_sigaction = handle_signal;
+	signal.sa_flags = SA_SIGINFO;
+	sigemptyset(&signal.sa_mask);
+	sigaction(SIGUSR1, &signal, 0);
+	sigaction(SIGUSR2, &signal, 0);
+	while (1)
 		pause();
-	}
 	return (0);
 }

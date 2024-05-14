@@ -6,7 +6,7 @@
 /*   By: lduchemi <lduchemi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:56:46 by lduchemi          #+#    #+#             */
-/*   Updated: 2024/04/30 15:19:57 by lduchemi         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:40:15 by lduchemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	handle_signal(int sig, siginfo_t *info, void *context)
 {
-	static char	*output = NULL;
+	static char				*output = NULL;
 	static unsigned char	c = 0;
-	static int	i = 0;
+	static int				i = 0;
 
 	(void)context;
 	c |= (sig == SIGUSR1);
@@ -47,6 +47,7 @@ int	main(void)
 	ft_printf("\033[90mWaiting for a message...\033[0m\n");
 	signal.sa_sigaction = handle_signal;
 	signal.sa_flags = SA_SIGINFO;
+	sigemptyset(&signal.sa_mask);
 	sigaction(SIGUSR1, &signal, 0);
 	sigaction(SIGUSR2, &signal, 0);
 	while (1)
